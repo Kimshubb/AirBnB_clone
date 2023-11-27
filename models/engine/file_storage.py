@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+import json
+
 '''Defines FileStorage class'''
 class FileStorage:
     '''serializes instances to JSON and deserializes JSON files to instances
