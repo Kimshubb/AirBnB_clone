@@ -17,6 +17,8 @@ class FileStorage:
 
     def new(self, obj):
         '''create new object sets in __objects obj with key <obj_class_name>.id'''
+        if not hasattr(obj, id):
+            obj.id = str(uuid.uuid(4))
         key = type(obj).__name__ + '.' + obj.id
         FileStorage.__objects[key] = obj
         
@@ -34,14 +36,14 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path) as file:
                 obj_dict = json.load(file)
-                for o in obj_dict.items():
-                    cls_name = o["__class__"]
-                    del o["__class__"]
+                for key, value in obj_dict.items():
+                    cls_name = value["__class__"]
+                    del value["__class__"]
                     cls = globals().get(cls_name)
                     if cls:
-                        instance_id = o.get("id")
-                        key = "{}.{}".format(cls_name, instance_id)
-                        if key not in storage.all(cls):
+                        instance_id = value.get("id")
+                        inst_key = "{}.{}".format(cls_name, instance_id)
+                        if inst_key not in storage.all(cls):
                             self.new(cls(**o))
 
         except FileNotFoundError:
