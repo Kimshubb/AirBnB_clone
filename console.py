@@ -3,7 +3,7 @@
 import cmd
 import shlex
 from models import storage
-from models.base.model import BaseModel
+from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
     '''command intepreter for hbnb project'''
