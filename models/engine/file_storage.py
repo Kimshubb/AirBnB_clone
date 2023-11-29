@@ -35,7 +35,7 @@ class FileStorage:
                     cls_name = o["__class__"]
                     del o["__class__"]
                     cls = globals()[cls_name]
-                    self.new(cls_name)(**o))
+                    self.new(cls_name)(**o)
 
         except FileNotFoundError:
              return
