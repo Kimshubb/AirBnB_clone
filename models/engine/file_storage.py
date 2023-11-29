@@ -34,7 +34,7 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path) as file:
                 obj_dict = json.load(file)
-                for key, o in obj_dict.items():
+                for o in obj_dict.items():
                     cls_name = o["__class__"]
                     del o["__class__"]
                     cls = globals().get(cls_name)
