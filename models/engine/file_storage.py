@@ -31,10 +31,11 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path) as file:
                 obj_dict = json.load(file)
-                for o in obj_dict.values():
+                for key, o in obj_dict.items():
                     cls_name = o["__class__"]
                     del o["__class__"]
-                    self.new(eval(cls_name)(**o)
+                    cls = globals()[cls_name]
+                    self.new(cls_name)(**o))
 
         except FileNotFoundError:
              return
