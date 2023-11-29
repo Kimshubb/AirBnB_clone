@@ -18,7 +18,7 @@ class FileStorage:
     def new(self, obj):
         '''create new object sets in __objects obj with key <obj_class_name>.id'''
         if not hasattr(obj, 'id'):
-            obj.id = str(uuid.uuid(4))
+            obj.id = str(uuid.uuid4())
         key = type(obj).__name__ + '.' + obj.id
         FileStorage.__objects[key] = obj
         
