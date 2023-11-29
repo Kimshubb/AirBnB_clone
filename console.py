@@ -22,22 +22,23 @@ class HBNBCommand(cmd.Cmd):
         '''Do nothing on empty file'''
         pass
     def do_create(self, arg):
-        """
-        Creates a new instance of BaseModel, saves it (to the JSON file),
-        and prints the id.
-        Usage: create <class name>
-        """
-        args = shlex.split(arg)
-        if len(args) == 0:
-            print("**class name missing**")
+    """Usage: create <class>
+    Create a new class instance and print its id.
+    """
+    argl = parse(arg)
+    if len(argl) == 0:
+        print("** class name missing **")
+    else:
+        class_name = argl[0]
+        storage = FileStorage()  # Assuming FileStorage is your storage implementation
+        if not storage.classes.get(class_name):
+            print("** class doesn't exist **")
         else:
-            cls_name = args[0]
-        if cls_name not in storage.all():
-            print("**class doesnt exist**")
-            return
-        new_instance = eval(f"{cls_name}")
-        new_instance.save()
-        print(new_instance.id)
+            new_instance = storage.classes[class_name]()
+            storage.new(new_instance)
+            storage.save()
+            print(new_instance.id)
+
 
     def do_show(self, arg):
         """
