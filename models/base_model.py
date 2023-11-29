@@ -17,7 +17,7 @@ class BaseModel:
                 setattr(self, 'id', str(uuid.uuid4()))
         else:
             self.id = str(uuid.uuid4())
-            self.created_at = datetime.now
+            self.created_at = self.updated_at = datetime.now
             storage.new(self)
 
     def __str__(self):
@@ -25,7 +25,6 @@ class BaseModel:
         return "[{}] ({}) {}".format(clsname, getattr(self, id, None),self.__dict__)
 
     def save(self):
-        self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):
