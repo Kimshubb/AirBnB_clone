@@ -28,6 +28,10 @@ class BaseModel:
         storage.save()
 
     def to_dict(self):
+        model_dict = {}
+        for key, value in self.__dict__.items():
+            if not callable(value):
+                model_dict[key] = value
         model_dict = self.__dict__.copy()
         model_dict['__class__'] = type(self).__name__
 
