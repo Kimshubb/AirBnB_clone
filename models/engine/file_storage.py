@@ -39,7 +39,9 @@ class FileStorage:
                     del o["__class__"]
                     cls = globals().get(cls_name)
                     if cls:
-                        self.new(cls(**o))
+                        instance_id = o.get("id")
+                        if instance_id not in storage.all(cls):
+                            self.new(cls(**o))
 
         except FileNotFoundError:
              return
