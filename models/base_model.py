@@ -28,11 +28,13 @@ class BaseModel:
         storage.save()
 
     def to_dict(self):
-        model_dict = dict(self.__dict__)
-        model_dict.update({
-            '__class__': type(self).__name__,
-            'updated_at': self.updated_at.isoformat(),
-            'id': self.id,
-            'created_at': self.created_at.isoformat()
-            })
+        model_dict = self.__dict__.copy()
+        model_dict['__class__'] = type(self).__name__
+
+        if isinstance(model_dict['created_at'], datetime):
+            model_dict['created_at'] = model_dict['created_at'].isoformat()
+
+        if isinstance(model_dict['updated_at'], datetime):
+            model_dict['updated_at'] = model_dict['updated_at'].isoformat()
+
         return model_dict
