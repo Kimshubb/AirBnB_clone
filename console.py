@@ -29,15 +29,15 @@ class HBNBCommand(cmd.Cmd):
         """
         args = shlex.split(arg)
         if len(args) == 0:
-            print("** class name missing **")
+            print("**class name missing**")
         else:
-            class_name = args[0]
-            if class_name not in storage.classes():
-                print("** class doesn't exist **")
-            else:
-                new_instance = storage.classes()[class_name]()
-                new_instance.save()
-                print(new_instance.id)
+            cls_name = args[0]
+        if cls_name not in storage.all():
+            print("**class doesnt exist**")
+            return
+        new_instance = eval(f"{cls_name}")
+        new_instance.save()
+        print(new_instance.id)
 
     def do_show(self, arg):
         """
@@ -50,7 +50,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             class_name = args[0]
-            if class_name not in storage.classes():
+            if class_name not in storage.all():
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             class_name = args[0]
-            if class_name not in storage.classes():
+            if class_name not in storage.all():
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
@@ -100,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
             print([str(obj) for obj in all_objs.values()])
         else:
             class_name = args[0]
-            if class_name not in storage.classes():
+            if class_name not in storage.all():
                 print("** class doesn't exist **")
             else:
                 print([str(obj) for key, obj in all_objs.items()
@@ -117,7 +117,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             class_name = args[0]
-            if class_name not in storage.classes():
+            if class_name not in storage.all():
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
