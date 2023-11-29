@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import json
+from models.base_model import BaseModel
 '''Defines FileStorage class'''
 class FileStorage:
     '''serializes instances to JSON and deserializes JSON files to instances
@@ -34,7 +35,7 @@ class FileStorage:
                     cls_name = o["__class__"]
                     del o["__class__"]
                     cls = globals()[cls_name]
-                    self.new(cls_name)(**o)
+                    self.new(cls(**o))
 
         except FileNotFoundError:
              return
