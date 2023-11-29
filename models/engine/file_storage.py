@@ -44,7 +44,8 @@ class FileStorage:
                         instance_id = value.get("id")
                         inst_key = "{}.{}".format(cls_name, instance_id)
                         if inst_key not in storage.all(cls):
-                            storage.new(cls(**value))
+                            instance = cls(**value)
+                            storage.new(instance)
 
         except FileNotFoundError:
              return
