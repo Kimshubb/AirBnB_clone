@@ -40,7 +40,8 @@ class FileStorage:
                     cls = globals().get(cls_name)
                     if cls:
                         instance_id = o.get("id")
-                        if instance_id not in storage.all(cls):
+                        key = "{}.{}".format(cls_name, instance_id)
+                        if key not in storage.all(cls):
                             self.new(cls(**o))
 
         except FileNotFoundError:
