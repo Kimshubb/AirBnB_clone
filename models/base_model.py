@@ -25,6 +25,7 @@ class BaseModel:
         return "[{}] ({}) {}".format(clsname, getattr(self, id, None),self.__dict__)
 
     def save(self):
+        from models.__init__ import storage
         storage.save()
 
     def to_dict(self):
