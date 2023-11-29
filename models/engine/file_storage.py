@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-import json
 from __future__ import annotations
+import json
+
 '''Defines FileStorage class'''
 class FileStorage:
     '''serializes instances to JSON and deserializes JSON files to instances
@@ -28,8 +29,8 @@ class FileStorage:
 
     def reload(self):
         '''Deserialize JSON file __file_path to __objects if it exists'''
-        from models.base_model import BaseModel
         from models.__init__ import storage
+        from models.base_model import BaseModel
         try:
             with open(FileStorage.__file_path) as file:
                 obj_dict = json.load(file)
