@@ -13,10 +13,12 @@ class BaseModel:
                     setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
                 else:
                     setattr(self, key, value)
-            else:
-                self.id = str(uuid.uuid4())
-                self.created_at = datetime.now
-                storage.new(self)
+            if 'id' not in kwargs:
+                setattr(self, 'id', str(uuid.uuid4()))
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now
+            storage.new(self)
 
     def __str__(self):
         clsname = self.__class__.__name__
