@@ -2,6 +2,7 @@
 from __future__ import annotations
 import json
 
+
 '''Defines FileStorage class'''
 class FileStorage:
     '''serializes instances to JSON and deserializes JSON files to instances
@@ -15,9 +16,12 @@ class FileStorage:
         if not os.path.exists(FileStorage.__file_path):
             self.save()
 
-    def all(self):
-        '''return __objects dict'''
-        return FileStorage.__objects
+    def all(self, cls=None):
+        '''return __objects dict filtered by class'''
+        if cls:
+            return {key: obj for key, obj in FileStorage.__objects.items() if isinstance (obj, cls)}
+        else:
+            return FileStorage.__objects
 
     def new(self, obj):
         '''create new object sets in __objects obj with key <obj_class_name>.id'''
@@ -38,7 +42,7 @@ class FileStorage:
         from models.__init__ import storage
         from models.base_model import BaseModel
         try:
-            with open(FileStorage.__file_path) as file:
+            with open(FileStorage.__file_path, 'r') as file:
                 obj_dict = json.load(file)
                 for key, value in obj_dict.items():
                     cls_name = value["__class__"]
