@@ -29,16 +29,15 @@ class HBNBCommand(cmd.Cmd):
     argl = parse(arg)
     if len(argl) == 0:
         print("** class name missing **")
+        return
+    class_name = argl[0]
+    if class_name not in storage.all():
+        print("** class doesn't exist **")
     else:
-        class_name = argl[0]
-        if class_name not in storage.all():
-            print("** class doesn't exist **")
-        else:
-            new_instance = storage.all()[class_name]()
-            storage.new(new_instance)
-            storage.save()
-            print(new_instance.id)
-
+        new_instance = storage.all()[class_name]()
+        storage.new(new_instance)
+        storage.save()
+        print(new_instance.id)
 
     def do_show(self, arg):
         """
