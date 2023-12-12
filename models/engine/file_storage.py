@@ -11,6 +11,10 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
+    def __init__(self):
+        if not os.path.exists(FileStorage.__file_path):
+            self.save()
+
     def all(self):
         '''return __objects dict'''
         return FileStorage.__objects
@@ -48,4 +52,4 @@ class FileStorage:
                             storage.new(instance)
 
         except FileNotFoundError:
-             return
+             pass
