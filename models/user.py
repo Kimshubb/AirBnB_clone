@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from models.base_model import BaseModel
 """Class user defination"""
-class user(BaseModel):
+class User(BaseModel):
     """User class"""
     email = ""
     password = ""

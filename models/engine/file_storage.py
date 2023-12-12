@@ -2,6 +2,7 @@
 from __future__ import annotations
 import json
 
+
 '''Defines FileStorage class'''
 class FileStorage:
     '''serializes instances to JSON and deserializes JSON files to instances
