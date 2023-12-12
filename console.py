@@ -24,21 +24,21 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-    """Usage: create <class>
-    Create a new class instance and print its id.
-    """
-    argl = parse(arg)
-    if len(argl) == 0:
-        print("** class name missing **")
-        return
-    class_name = argl[0]
-    if class_name not in storage.all():
-        print("** class doesn't exist **")
-    else:
-        new_instance = storage.all()[class_name]()
-        storage.new(new_instance)
-        storage.save()
-        print(new_instance.id)
+        """Usage: create <class>
+        Create a new class instance and print its id.
+        """
+        argl = parse(arg)
+        if len(argl) == 0:
+            print("** class name missing **")
+            return
+        class_name = argl[0]
+        if class_name not in storage.all():
+            print("** class doesn't exist **")
+        else:
+            new_instance = storage.all()[class_name]()
+            storage.new(new_instance)
+            storage.save()
+            print(new_instance.id)
 
     def do_show(self, arg):
         """Prints the string representation of an instance
