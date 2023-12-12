@@ -12,8 +12,11 @@ class FileStorage:
     __objects = {}
 
     def all(self):
-        '''return __objects dict'''
-        return FileStorage.__objects
+        '''return __objects dict filtered by class'''
+        if cls:
+            return {key: obj for key, obj in FileStorage.__objects.items() if isinstance (obj, cls)}
+        else:
+            return FileStorage.__objects
 
     def new(self, obj):
         '''create new object sets in __objects obj with key <obj_class_name>.id'''
@@ -34,7 +37,7 @@ class FileStorage:
         from models.__init__ import storage
         from models.base_model import BaseModel
         try:
-            with open(FileStorage.__file_path) as file:
+            with open(FileStorage.__file_path, 'r') as file:
                 obj_dict = json.load(file)
                 for key, value in obj_dict.items():
                     cls_name = value["__class__"]

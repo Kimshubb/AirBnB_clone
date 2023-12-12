@@ -4,6 +4,7 @@ import cmd
 import shlex
 from models import storage
 from models.base_model import BaseModel
+from models.user import user
 
 class HBNBCommand(cmd.Cmd):
     '''command intepreter for hbnb project'''
@@ -30,11 +31,10 @@ class HBNBCommand(cmd.Cmd):
         print("** class name missing **")
     else:
         class_name = argl[0]
-        storage = FileStorage()  # Assuming FileStorage is your storage implementation
-        if not storage.classes.get(class_name):
+        if class_name not in storage.all():
             print("** class doesn't exist **")
         else:
-            new_instance = storage.classes[class_name]()
+            new_instance = storage.all()[class_name]()
             storage.new(new_instance)
             storage.save()
             print(new_instance.id)
@@ -53,16 +53,17 @@ class HBNBCommand(cmd.Cmd):
             class_name = args[0]
             if class_name not in storage.all():
                 print("** class doesn't exist **")
-            elif len(args) < 2:
+                return
+            if len(args) < 2:
                 print("** instance id missing **")
-            else:
-                obj_id = args[1]
-                key = "{}.{}".format(class_name, obj_id)
-                all_objs = storage.all()
-                if key not in all_objs:
-                    print("** no instance found **")
-                else:
-                    print(all_objs[key])
+                return
+            obj_id = args[1]
+            key = "{}.{}".format(class_name, obj_id)
+            all_objs = storage.all()
+            if key not in all_objs:
+                print("** no instance found **")
+                return
+            print(all_objs[key])
 
     def do_destroy(self, arg):
         """
@@ -72,21 +73,23 @@ class HBNBCommand(cmd.Cmd):
         args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
-        else:
-            class_name = args[0]
-            if class_name not in storage.all():
-                print("** class doesn't exist **")
-            elif len(args) < 2:
-                print("** instance id missing **")
-            else:
-                obj_id = args[1]
-                key = "{}.{}".format(class_name, obj_id)
-                all_objs = storage.all()
-                if key not in all_objs:
-                    print("** no instance found **")
-                else:
-                    del all_objs[key]
-                    storage.save()
+            return
+        class_name = arg[0]
+        if class_name not in storage.all():
+            print("** class doesn't exist **")
+            return
+        if len(args) < 2:
+            print(" instance id missing **")
+            return
+        obj_id = args[1]
+        key = "{}.{}".format(class_name, obj_id)
+        all_objs = storage.all()
+        if key not in all_objs:
+            print("** no instance found **")
+            return
+        del all_objs[key]
+        storage.save()
+
 
     def do_all(self, arg):
         """
@@ -116,28 +119,32 @@ class HBNBCommand(cmd.Cmd):
         args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
-        else:
-            class_name = args[0]
-            if class_name not in storage.all():
-                print("** class doesn't exist **")
-            elif len(args) < 2:
-                print("** instance id missing **")
-            else:
-                obj_id = args[1]
-                key = "{}.{}".format(class_name, obj_id)
-                all_objs = storage.all()
-                if key not in all_objs:
-                    print("** no instance found **")
-                elif len(args) < 3:
-                    print("** attribute name missing **")
-                elif len(args) < 4:
-                    print("** value missing **")
-                else:
-                    attribute_name = args[2]
-                    attribute_value = args[3]
-                    obj = all_objs[key]
-                    setattr(obj, attribute_name, attribute_value)
-                    obj.save()
+            return
+        class_name = args[0]
+        if class_name not in storage.all():
+            print("** class doesn't exist **")
+            return
+        if len(args) < 2:
+            print("** instance id missing **")
+            return
+        obj_id = args[1]
+        key = "{}.{}".format(class_name, obj_id)
+        all_objs = storage.all()
+        if key not in all_objs:
+            print("** no instance found **")
+            return
+        if len(args) < 3:
+            print("** attribute name missing **")
+            return
+        if len(args) < 4:
+            print("** value missing **")
+            return
+
+        attribute_name = args[2]
+        attribute_value = args[3]
+        obj = all_objs[key]
+        setattr(obj, attribute_name, attribute_value)
+        obj.save()
 
 
 if __name__ == '__main__':
