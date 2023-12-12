@@ -22,9 +22,10 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         '''Do nothing on empty file'''
         pass
+
     def do_create(self, arg):
     """Usage: create <class>
-            Create a new class instance and print its id.
+    Create a new class instance and print its id.
     """
     argl = parse(arg)
     if len(argl) == 0:
@@ -40,10 +41,9 @@ class HBNBCommand(cmd.Cmd):
         print(new_instance.id)
 
     def do_show(self, arg):
-        """
-        Prints the string representation of an instance
+        """Prints the string representation of an instance
         based on the class name and id.
-                Usage: show <class name> <id>
+        Usage: show <class name> <id>
         """
         args = shlex.split(arg)
         if len(args) == 0:
@@ -65,9 +65,8 @@ class HBNBCommand(cmd.Cmd):
             print(all_objs[key])
 
     def do_destroy(self, arg):
-        """
-        Deletes an instance based on the class name and id.
-                Usage: destroy <class name> <id>
+        """Deletes an instance based on the class name and id.
+        Usage: destroy <class name> <id>
         """
         args = shlex.split(arg)
         if len(args) == 0:
@@ -94,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Prints all string representation of all instances
         based or not on the class name.
-                Usage: all [class name]
+        Usage: all [class name]
         """
         args = shlex.split(arg)
         all_objs = storage.all()
@@ -110,10 +109,9 @@ class HBNBCommand(cmd.Cmd):
                        if key.startswith(class_name + '.')])
 
     def do_update(self, arg):
-        """
-        Updates an instance based on the class name and id
+        """Updates an instance based on the class name and id
         by adding or updating an attribute.
-                Usage: update <class name> <id> <attribute name> "<attribute value>"
+        Usage: update <class name> <id> <attribute name> "<attribute value>"
         """
         args = shlex.split(arg)
         if len(args) == 0:
