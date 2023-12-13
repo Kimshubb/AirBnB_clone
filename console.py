@@ -51,6 +51,10 @@ class HBNBCommand(cmd.Cmd):
         based on the class name and id.
         Usage: show <class name> <id>
         """
+        if arg.count('"') % 2 != 0:
+            print("Error: Unbalanced quotes")
+            return
+
         args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
