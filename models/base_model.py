@@ -24,7 +24,8 @@ class BaseModel:
 
     def __str__(self):
         clsname = self.__class__.__name__
-        return "[{}] ({}) {}".format(clsname, getattr(self, id, None),self.__dict__)
+        id_atrr = 'id'
+        return "[{}] ({}) {}".format(clsname, getattr(self, id_atrr, None), self.__dict__)
 
     def save(self):
         from models.__init__ import storage
