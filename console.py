@@ -5,6 +5,10 @@ import shlex
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.review import Review
+from models.city import City
+from models.state import State
 
 class HBNBCommand(cmd.Cmd):
     '''command intepreter for hbnb project'''
@@ -32,10 +36,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = argl[0]
-        if class_name not in storage.all():
+        class_mapping = {'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
+
+        if class_name not in class_mapping:
             print("** class doesn't exist **")
         else:
-            new_instance = storage.all()[class_name]()
+            new_instance = class_mapping[class_name]()
             storage.new(new_instance)
             storage.save()
             print(new_instance.id)
@@ -50,7 +56,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             class_name = args[0]
-            if class_name not in storage.all():
+            class_mapping = {'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
+            if class_name not in class_mapping:
                 print("** class doesn't exist **")
                 return
             if len(args) < 2:
@@ -73,7 +80,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = arg[0]
-        if class_name not in storage.all():
+        class_mapping = {'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
+        if class_name not in class_mapping:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
@@ -102,7 +110,8 @@ class HBNBCommand(cmd.Cmd):
             print([str(obj) for obj in all_objs.values()])
         else:
             class_name = args[0]
-            if class_name not in storage.all():
+            class_mapping = {'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
+            if class_name not in class_mapping:
                 print("** class doesn't exist **")
             else:
                 print([str(obj) for key, obj in all_objs.items()
@@ -118,7 +127,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = args[0]
-        if class_name not in storage.all():
+        class_mapping = {'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
+        if class_name not in class_mapping:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
