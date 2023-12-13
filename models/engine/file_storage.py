@@ -2,7 +2,6 @@
 from __future__ import annotations
 import json
 
-
 '''Defines FileStorage class'''
 class FileStorage:
     '''serializes instances to JSON and deserializes JSON files to instances
@@ -11,6 +10,10 @@ class FileStorage:
     '''
     __file_path = "file.json"
     __objects = {}
+
+    def __init__(self):
+        if not os.path.exists(FileStorage.__file_path):
+            self.save()
 
     def all(self, cls=None):
         '''return __objects dict filtered by class'''
@@ -44,7 +47,7 @@ class FileStorage:
                     cls_name = value["__class__"]
                     del value["__class__"]
                     cls = globals().get(cls_name)
-                    if cls:
+                    if cls and issubclass(cls, BaseModel):
                         instance_id = value.get("id")
                         inst_key = "{}.{}".format(cls_name, instance_id)
                         if inst_key not in storage.all(cls):
@@ -52,4 +55,4 @@ class FileStorage:
                             storage.new(instance)
 
         except FileNotFoundError:
-             return
+             pass
