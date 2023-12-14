@@ -47,3 +47,8 @@ class BaseModel:
             model_dict['updated_at'] = model_dict['updated_at'].isoformat()
 
         return model_dict
+
+    def all(cls):
+        """Returns a list of string represntation of instances"""
+        all_objs = storage.all(cls)
+        return [obj.id for obj in all_objs.values()]
