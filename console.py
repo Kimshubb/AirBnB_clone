@@ -183,23 +183,6 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj, attribute_name, attribute_value)
         obj.save()
 
-    def do_show_id(self, arg):
-        """retrieves an instance based on its id
-        usage: <class name>. show(<id>)"""
-        args = shlex.split(arg)
-        if len(args) < 2 or args[1] != '.show(' or not args[2].endswith(')'):
-            print("** Invalid syntax. Usage: <class name>.show(<id>) **")
-            return
-        class_name = args[0]
-        obj_id = args[2][:-1]
-        key = "{}.{}".format(class_name, obj_id)
-        all_objs = storage.all()
-
-        if key in all_objs:
-            print(all_objs[key])
-        else:
-            print("** No instance found with ID:{}".format(obj_id))
-
 
     def do_all_class(self, arg):
         """retrieves all instances of a class:
