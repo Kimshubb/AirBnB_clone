@@ -201,8 +201,6 @@ class HBNBCommand(cmd.Cmd):
             print("** No instance found with ID:{}".format(obj_id))
 
 
-self.__class__.do_show_id = self.do_show_id
-
     def do_all_class(self, arg):
         """retrieves all instances of a class:
             usage: <class name.all()>
@@ -217,8 +215,6 @@ self.__class__.do_show_id = self.do_show_id
         else:
             print("** No instances found for class:{}".format(class_name))
 
-self.__class__.do_all_class = self.do_all_class
-
 
     def do_count_class(self, arg):  
         """Retrieves the number of instances of a class
@@ -229,9 +225,6 @@ self.__class__.do_all_class = self.do_all_class
 
         count = sum(1 for key in all_objs.keys() if key.startswith(class_name + '.'))
         print(count)
-
-
-self.__class__.do_count_class = self.do_count_class
 
 
     def do_show_id(self, arg):
@@ -254,7 +247,6 @@ self.__class__.do_count_class = self.do_count_class
             print(all_objs[key])
         else:
             print("** No instance found with ID: {}".format(obj_id))
-self.__class__.do_show_id = self.do_show_id
 
     def do_destroy_id(self, arg):
         """
@@ -277,7 +269,7 @@ self.__class__.do_show_id = self.do_show_id
             storage.save()
         else:
             print("** No instance found with ID: {}".format(obj_id))
-self.__class__.do_destroy_id = self.do_destroy_id
+
 
     def update_by_id(self, arg):
         """
@@ -302,8 +294,6 @@ self.__class__.do_destroy_id = self.do_destroy_id
         obj = all_objs[key]
         setattr(obj, attribute_name, attribute_value)
         storage.save()
-
-self.__class__.update_by_id = self.update_by_id
 
     def do_update_dict(self, arg):
         """
@@ -335,8 +325,6 @@ self.__class__.update_by_id = self.update_by_id
         for attr, value in update_dict.items():
             setattr(obj, attr, value)
             storage.save()
-
-self.__class__.do_update_dict = self.do_update_dict
 
 
 if __name__ == '__main__':
