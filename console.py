@@ -95,7 +95,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return
-        class_name = arg[0]
+        class_name = args[0]
         class_mapping = {
                 'State': State,
                 'City': City,
