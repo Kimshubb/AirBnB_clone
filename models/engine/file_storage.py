@@ -21,7 +21,7 @@ class FileStorage:
         if cls:
             return {key: obj for key, obj in FileStorage.__objects.items() if isinstance (obj, cls)}
         else:
-            return FileStorage.__objects
+            return [str(obj) for obj in FileStorage.__objects.values()]
 
     def new(self, obj):
         '''create new object sets in __objects obj with key <obj_class_name>.id'''
