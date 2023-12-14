@@ -11,6 +11,7 @@ from models.review import Review
 from models.city import City
 from models.state import State
 
+
 class HBNBCommand(cmd.Cmd):
     '''command intepreter for hbnb project'''
     prompt = '(hbnb)'
@@ -19,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
         '''Exit program'''
         return True
 
-    def do_EOF(self,arg):
+    def do_EOF(self, arg):
         '''Exit the program with Ctrl+d'''
         print()
         return True
@@ -37,7 +38,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = argl[0]
-        class_mapping = {'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
+        class_mapping = {
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Place': Place,
+            'Review': Review}
 
         if class_name not in class_mapping:
             print("** class doesn't exist **")
@@ -61,7 +67,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             class_name = args[0]
-            class_mapping = {'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
+            class_mapping = {
+                'State': State,
+                'City': City,
+                'Amenity': Amenity,
+                'Place': Place,
+                'Review': Review}
             if class_name not in class_mapping:
                 print("** class doesn't exist **")
                 return
@@ -85,7 +96,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = arg[0]
-        class_mapping = {'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
+        class_mapping = {
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Place': Place,
+            'Review': Review}
         if class_name not in class_mapping:
             print("** class doesn't exist **")
             return
@@ -101,7 +117,6 @@ class HBNBCommand(cmd.Cmd):
         del all_objs[key]
         storage.save()
 
-
     def do_all(self, arg):
         """
         Prints all string representation of all instances
@@ -115,7 +130,12 @@ class HBNBCommand(cmd.Cmd):
             print([str(obj) for obj in all_objs.values()])
         else:
             class_name = args[0]
-            class_mapping = {'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
+            class_mapping = {
+                'State': State,
+                'City': City,
+                'Amenity': Amenity,
+                'Place': Place,
+                'Review': Review}
             if class_name not in class_mapping:
                 print("** class doesn't exist **")
             else:
@@ -132,7 +152,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = args[0]
-        class_mapping = {'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
+        class_mapping = {
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Place': Place,
+            'Review': Review}
         if class_name not in class_mapping:
             print("** class doesn't exist **")
             return
@@ -157,7 +182,7 @@ class HBNBCommand(cmd.Cmd):
         obj = all_objs[key]
         setattr(obj, attribute_name, attribute_value)
         obj.save()
-    
+
     def do_show_id(self, arg):
         """retrieves an instance based on its id
         usage: <class name>. show(<id>)"""
@@ -174,41 +199,55 @@ class HBNBCommand(cmd.Cmd):
             print(all_objs[key])
         else:
             print("** No instance found with ID:{}".format(obj_id))
+
+
 self.__class__.do_show_id = self.do_show_id
 
-    def do_all_class(self, arg):
-        """retrieves all instances of a class:
+
+def do_all_class(self, arg):
+     """retrieves all instances of a class:
         usage: <class name.all()>
         """
-        args = shelext.split(arg)
-        class_name = args[0]
+      args = shelext.split(arg)
+       class_name = args[0]
         all_objs = storage.all()
-        class_instances = [str(obj) for key, obj in all_objs.items() if key.startswith(class_name + '.')]
+        class_instances = [
+            str(obj) for key,
+            obj in all_objs.items() if key.startswith(
+                class_name + '.')]
         if class_instances:
             print(class_instances)
         else:
             print("** No instances found for class:{}".format(class_name))
+
+
 self.__class__.do_all_class = self.do_all_class
 
-    def do_count_class(self, arg):
-        """Retrieves the number of instances of a class
-        usage: <class name>.count()"""
-        class_name = arg.split('.')[0]
-        all_objs = storage.all()
 
-        count = sum(1 for key in all_objs.keys() if key.startswith(class_name + '.'))
+def do_count_class(self, arg):
+     """Retrieves the number of instances of a class
+        usage: <class name>.count()"""
+      class_name = arg.split('.')[0]
+       all_objs = storage.all()
+
+        count = sum(
+            1 for key in all_objs.keys() if key.startswith(
+                class_name + '.'))
 
         print(count)
+
+
 self.__class__.do_count_class = self.do_count_class
 
-    def do_show_id(self, arg):
-        """
+
+def do_show_id(self, arg):
+     """
         Retrieves an instance based on its ID: <class name>.show(<id>).
         Usage: <class name>.show(<id>)
         """
-        args = shlex.split(arg)
+      args = shlex.split(arg)
 
-        if len(args) != 3 or args[1] != 'show(' or not args[2].endswith(')'):
+       if len(args) != 3 or args[1] != 'show(' or not args[2].endswith(')'):
             print("** Invalid syntax. Usage: <class name>.show(<id>)")
             return
 
@@ -223,14 +262,15 @@ self.__class__.do_count_class = self.do_count_class
             print("** No instance found with ID: {}".format(obj_id))
 self.__class__.do_show_id = self.do_show_id
 
-    def do_destroy_id(self, arg):
-        """
+def do_destroy_id(self, arg):
+     """
         Destroys an instance based on its ID: <class name>.destroy(<id>).
         Usage: <class name>.destroy(<id>)
         """
-        args = shlex.split(arg)
+      args = shlex.split(arg)
 
-        if len(args) != 3 or args[1] != 'destroy(' or not args[2].endswith(')'):
+       if len(
+                args) != 3 or args[1] != 'destroy(' or not args[2].endswith(')'):
             print("** Invalid syntax. Usage: <class name>.destroy(<id>)")
             return
 
@@ -246,15 +286,16 @@ self.__class__.do_show_id = self.do_show_id
             print("** No instance found with ID: {}".format(obj_id))
 self.__class__.do_destroy_id = self.do_destroy_id
 
-    def update_by_id(self, arg):
-        """
+def update_by_id(self, arg):
+     """
         Updates an instance based on its ID: <class name>.update(<id>, <attribute name>, <attribute value>).
         Usage: <class name>.update(<id>, <attribute name>, <attribute value>)
         """
-        args = shlex.split(arg)
+      args = shlex.split(arg)
 
-        if len(args) < 4 or args[1] != 'update(' or not args[-1].endswith(')'):
-            print("** Invalid syntax. Usage: <class name>.update(<id>, <attribute name>, <attribute value>)")
+       if len(args) < 4 or args[1] != 'update(' or not args[-1].endswith(')'):
+            print(
+                "** Invalid syntax. Usage: <class name>.update(<id>, <attribute name>, <attribute value>)")
             return
 
         class_name = args[0]
@@ -273,20 +314,21 @@ self.__class__.do_destroy_id = self.do_destroy_id
         storage.save()
 self.__class__.update_by_id = self.update_by_id
 
-    def do_update_dict(self, arg):
-        """
+def do_update_dict(self, arg):
+     """
         Updates an instance based on its ID with a dictionary: <class name>.update(<id>, <dictionary representation>).
         Usage: <class name>.update(<id>, <dictionary representation>)
         """
-        args = shlex.split(arg)
+      args = shlex.split(arg)
 
-        if len(args) < 4 or args[1] != 'update(' or not args[-1].endswith(')'):
-            print("** Invalid syntax. Usage: <class name>.update(<id>, <dictionary representation>)")
+       if len(args) < 4 or args[1] != 'update(' or not args[-1].endswith(')'):
+            print(
+                "** Invalid syntax. Usage: <class name>.update(<id>, <dictionary representation>)")
             return
 
         class_name = args[0]
         obj_id = args[2]
-        dictionary_str = args[3][1:-1]  
+        dictionary_str = args[3][1:-1]
         key = "{}.{}".format(class_name, obj_id)
         all_objs = storage.all()
 
@@ -311,4 +353,3 @@ self.__class__.do_update_dict = self.do_update_dict
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
