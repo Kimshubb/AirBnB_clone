@@ -101,7 +101,6 @@ class HBNBCommand(cmd.Cmd):
         del all_objs[key]
         storage.save()
 
-
     def do_all(self, arg):
         """
         Prints all string representation of all instances
@@ -180,7 +179,7 @@ self.__class__.do_show_id = self.do_show_id
         """retrieves all instances of a class:
         usage: <class name.all()>
         """
-        args = shelext.split(arg)
+        args = shlex.split(arg)
         class_name = args[0]
         all_objs = storage.all()
         class_instances = [str(obj) for key, obj in all_objs.items() if key.startswith(class_name + '.')]
