@@ -1,0 +1,51 @@
+.filters{
+    background-color: white;
+    height: 70px;
+    width: 100%;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    justify-content: space-between;
+    position: relative;
+ }
+ section.filters button{
+    font-size: 18px;
+    background-color: #FF5A5F;
+    color: white;
+    height: 48px;
+    width: 20%;
+    border: none;
+    position: absolute;
+    right: 30px;
+    border-radius: 4px;
+    opacity: 1;
+    margin-right: 30px;
+    transition: opacity 0.2s ease-in-out;
+ }
+ section.filters button:hover{
+    opacity: 0.9;
+ }
+ section.filters .amenities{
+   height: 100%;
+   width: calc(25% - 10px);
+   border-right: #DDDDDD solid 1px;
+   box-sizing: border-box;
+   margin-right: 600px;
+ }
+ section.filters .location{
+    height: 100%;
+    width: calc(25% - 10px);
+    border-right: #DDDDDD solid 1px;
+    box-sizing: border-box;
+ }
+ section.filters h3{
+    font-weight: 600;
+    color: black;
+ }
+ section.filters h4{
+    font-weight: 400;
+    font-size: 14px;
+    color: black;
+ }

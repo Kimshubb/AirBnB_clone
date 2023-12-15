@@ -1,0 +1,53 @@
+.places{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+h1{
+    font-size: 30px;
+    color: black;
+}
+article{
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #ff5a5f;
+    border-radius: 4px;
+    color: black;
+    text-align: center;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+article h2{
+    font-size: 30px;
+    text-align: center;
+    color: black;
+}
+article img{
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px 4px 0 0;
+}
+.information{
+    height: 80px;
+    border-top: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+.max_guest,
+.room_no,
+.bathrooms_no{
+    width: 100px;
+}
+.user{
+    margin-top: 10px;
+}
+.description{
+    margin-top: 20px;
+    color: black;
+
+}
