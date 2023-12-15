@@ -21,7 +21,7 @@ class FileStorage:
         if cls:
             return {key: obj for key, obj in FileStorage.__objects.items() if isinstance (obj, cls)}
         else:
-            return FileStorage.__objects
+            return [str(obj) for obj in FileStorage.__objects.values()]
 
     def new(self, obj):
         '''create new object sets in __objects obj with key <obj_class_name>.id'''
@@ -33,7 +33,7 @@ class FileStorage:
     def save(self):
         '''Serialize __objects to JSON file __file_path'''
         odict = FileStorage.__objects
-        objdict = {obj: odict[obj].to_dict() for obj in odict.keys()}
+        objdict = {odict[obj].id: odict[obj].to_dict() for obj in odict.keys()}
         with open(FileStorage.__file_path, "w+") as file:
             json.dump(objdict, file)
 
